@@ -1,23 +1,16 @@
-# Using iterrrows
 import pandas as pd
 
-data = {'Item': ['Apple', 'Banana', 'Orange'], 'Quantity': [10, 20, 30], 'Price': [0.5, 0.3, 0.7]}
-df = pd.DataFrame(data)
+df = pd.read_csv("big-mac-full-index.csv")
 
-#Iterating over rows
+# Using iterrows()
+print("Using iterrows(): ")
 for index, row in df.iterrows():
-    total_sales = row['Quantity'] * row['Price']
-    print(f"{row['Item']} Total Sales: ${total_sales}")
+    print(index, row.to_dict())
+
+#define print row
+def print_row(row):
+    print(row.name, row.to_dict())
 
 # Using apply()
-data = {'Item': ['Apple', 'Banana', 'Orange'], 'Quantity': [10, 20, 30], 'Price': [0.5, 0.3, 0.7]}
-df = pd.DataFrame(data)
-
-#Defining a function to calculate total sales for each row
-def calculate_total_sales(row):
-    return f"{row['Item']} Total Sales: ${row['Quantity'] * row['Price']}"
-
-#Applying the function row-wise
-result = df.apply(calculate_total_sales, axis=1)
-for res in result:
-    print(res)
+print("\nUsing apply(): ")
+df.apply(print_row, axis=1)
